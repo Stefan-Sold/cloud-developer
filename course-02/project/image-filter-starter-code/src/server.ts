@@ -29,24 +29,25 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
 
+	// Image URL for testing: https://www.hdwallpaper.nu/wp-content/uploads/2015/02/Funny-Cat-Hidden.jpg
+	
 	app.get("/filteredimage", ( req, res ) => {
 		let { image_url } = req.query;
 		let new_image_url;
-		
+		// If no address is given return this
 		if (!image_url) {
 			return res.status(400).send("Please specify a valid Image URL.");
 		};
+		// An address was given ...
 		filterImageFromURL(image_url).then(
-			function(value) { return res.status(200).send(value)})
+			function(value) {
+				// Send the file
+				return res.sendFile(value);
+			})
 			.catch(
+				// The adress is invalid
 				function(error) { return res.status(400).send("The Image URL is invalid!")}
 			);
-		// try {
-		// 	new_image_url = res.status(200).send(filterImageFromURL(image_url));
-		// 	return res.status(200).send(`New local url: ${new_image_url}`)
-		// } catch (error) {
-		// 	return res.status(400).send("An internal error occured.");
-		// };
 	});
 	
   //! END @TODO1

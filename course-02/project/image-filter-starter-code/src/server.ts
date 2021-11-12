@@ -31,13 +31,22 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
 	app.get("/filteredimage", ( req, res ) => {
 		let { image_url } = req.query;
-		if (!image_url) {
-			return res.status(400).send(`You have to type a URL!`);
-		};
-		try:
-		filterImageFromURL ()
+		let new_image_url;
 		
-		return res.status(200).send(`Ok, good! This is the URL: ${image_url}`);
+		if (!image_url) {
+			return res.status(400).send("Please specify a valid Image URL.");
+		};
+		filterImageFromURL(image_url).then(
+			function(value) { return res.status(200).send(value)})
+			.catch(
+				function(error) { return res.status(400).send("The Image URL is invalid!")}
+			);
+		// try {
+		// 	new_image_url = res.status(200).send(filterImageFromURL(image_url));
+		// 	return res.status(200).send(`New local url: ${new_image_url}`)
+		// } catch (error) {
+		// 	return res.status(400).send("An internal error occured.");
+		// };
 	});
 	
   //! END @TODO1

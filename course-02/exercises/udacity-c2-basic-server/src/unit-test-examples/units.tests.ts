@@ -1,4 +1,4 @@
-import { add, divide } from './units';
+import { add, divide, my_concat } from './units';
 
 import { expect } from 'chai';
 import 'mocha';
@@ -38,3 +38,27 @@ describe('divide', () => {
 // @TODO try creating a new describe block for the "concat" method
 // it should contain an it block for each it statement in the units.ts @TODO.
 // don't forget to import the method ;)
+
+describe('my_concat', () => {
+
+	it('should yield Autobahn', () => {
+		const concated_string = my_concat("Auto", "bahn");
+		expect(concated_string).to.equal("Autobahn");
+	});
+
+	it('should thow an error if one argument is null', () => {
+		expect(() => { my_concat("Automobil", "")}).to.throw("At least one string is empty!");
+	})
+
+	it('should thow an error if one argument is null', () => {
+		expect(() => { my_concat("Auto", null)}).to.throw("At least one string is empty!");
+	});
+
+	it('should thow an error if one argument is null', () => {
+		expect(() => { my_concat(null, "bahn")}).to.throw("At least one string is empty!");
+	});
+
+	it('should thow an error if one argument is null', () => {
+		expect(() => { my_concat(null, null)}).to.throw("At least one string is empty!");
+	});
+})
